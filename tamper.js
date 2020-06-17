@@ -24,7 +24,7 @@ var AjaxMonitoringSample =
 		<div>
 			<textarea id="`+this.mainDivId+`_params" style="width:100%; height:40px;" placeholder="{key1:&quot;value1&quot;}"></textarea>
 			<input type="text" value="" id="`+this.mainDivId+`_url" style="width:100%;" placeholder="http://example.com" /> 
-			<button onclick="AjaxMonitoringSample.submitClicked();">resend</button>  <button id="`+this.mainDivId+`_status" onclick="AjaxMonitoringSample.toggleMonitoring();">ON/OFF</button> <input type="checkbox" id="`+this.mainDivId+`_autodisable" /> Disable automatically after first request (to avoid concurrent calls)
+			<button onclick="`+this.mainDivId+`.submitClicked();">resend</button>  <button id="`+this.mainDivId+`_status" onclick="`+this.mainDivId+`.toggleMonitoring();">ON/OFF</button> <input type="checkbox" id="`+this.mainDivId+`_autodisable" /> Disable automatically after first request (to avoid concurrent calls)
 			<div style="display:flex;height:40px;">Response: <textarea disabled id="`+this.mainDivId+`_response" style="width:100%; height:100%;"></textarea></div>
 		</div>`;
 		document.body.appendChild(div);
@@ -87,13 +87,12 @@ var AjaxMonitoringSample =
 	{
 		var this_ = this;
 		this.manualSumbission = true;
-		var params = JSON.parse(document.getElementById(this.mainDivId+"_params").value);  
+		var params = JSON.stringify(JSON.parse(document.getElementById(this.mainDivId+"_params").value));  
 		var url = document.getElementById(this.mainDivId+"_url").value;
 
 		var http = new XMLHttpRequest();
 		http.open('POST', url, true);
-
-		http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		http.setRequestHeader("Content-Type", (true ? "application/json;charset=UTF-8" : "application/x-www-form-urlencoded") ); 
 
 		http.onreadystatechange = function() {
 			if(http.readyState == 4 && http.status != 999)  
