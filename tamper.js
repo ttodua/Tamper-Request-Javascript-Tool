@@ -25,6 +25,7 @@ var AjaxMonitoringSample =
 		`<style>#`+this.mainDivId+`{ z-index:99999; position:fixed; bottom:0px; left:0px; width: 90%; left:5%; margin:0 auto; border:2px solid red; background:orange; border-radius:7px; opacity:0.9; } #`+this.mainDivId+` > *{padding:5px;}</style> 
 		<div>
 			<textarea id="`+this.mainDivId+`_params" style="width:100%; height:40px;" placeholder="{key1:&quot;value1&quot;}"></textarea>
+			<textarea id="`+this.mainDivId+`_headers" style="width:100%; height:40px;" placeholder="{headersArray}"></textarea>
 			<input type="text" value="" id="`+this.mainDivId+`_url" style="width:100%;" placeholder="http://example.com" /> 
 			<button onclick="`+this.mainDivId+`.submitClicked();">resend</button>  <button id="`+this.mainDivId+`_status" onclick="`+this.mainDivId+`.toggleMonitoring();">ON/OFF</button> <input type="checkbox" id="`+this.mainDivId+`_autodisable" /> Disable automatically after first request (to avoid concurrent calls)
 			<div style="display:flex;height:40px;">Response: <textarea disabled id="`+this.mainDivId+`_response" style="width:100%; height:100%;"></textarea></div>
@@ -38,6 +39,7 @@ var AjaxMonitoringSample =
 		if(typeof AjaxMonitoring_notfired == "undefined") var AjaxMonitoring_notfired=false; if (!AjaxMonitoring_notfired) 
 		{ 
 			AjaxMonitoring_notfired=true;
+			//
 			var XHR_SendOriginal = XMLHttpRequest.prototype.send;
 			XMLHttpRequest.prototype.send = function(data){
 				if (! this_.manualSumbission) 
@@ -46,13 +48,13 @@ var AjaxMonitoringSample =
 					{
 						if (this_.monitoring_status)
 						{
-							document.getElementById(this_.mainDivId+"_params").value = data;
+							document.getElementById(this_.mainDivId+"_params").value = data; 
 						}
 					}
 				}
 			    XHR_SendOriginal.apply(this, arguments);
 			};
-
+			//
 			var XHR_OpenOriginal = XMLHttpRequest.prototype.open;
 			XMLHttpRequest.prototype.open = function(method, uri, async, user, pass) {
 				if (! this_.manualSumbission)
@@ -71,6 +73,7 @@ var AjaxMonitoringSample =
 									if(this_.ifDisableAfterFirstExecution()) 
 										this_.toggleMonitoring();
 									this_.setResponse(this.responseText);
+									document.getElementById(this_.mainDivId+"_headers").value = JSON.stringify(this_.lastHeaders);
 								}
 							}, false);
 						}
@@ -78,8 +81,7 @@ var AjaxMonitoringSample =
 				}
 				XHR_OpenOriginal.apply(this, arguments);
 			};
-			
-			
+			//
 			var XHR_SetRequestHeaderOriginal = XMLHttpRequest.prototype.setRequestHeader;
 			XMLHttpRequest.prototype.setRequestHeader = function(a, b) {
 				if (! this_.manualSumbission)
@@ -112,7 +114,8 @@ var AjaxMonitoringSample =
 		var http = new XMLHttpRequest();
 		http.open('POST', url, true);
 		
-		for (var prop in this.lastHeaders) {
+		var headers = JSON.parse(document.getElementById(this.mainDivId+"_headers").value); var notUseHeaders= this.lastHeaders;
+		for (var prop in headers) {
 			if (Object.prototype.hasOwnProperty.call(this.lastHeaders, prop)) {
 				http.setRequestHeader(prop, this.lastHeaders[prop] ); 
 			}
