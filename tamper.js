@@ -1,6 +1,11 @@
+/*
+// ########################################################### //
+// https://github.com/ttodua/Tamper-Request-Javascript-Tool    //
+// Don't put comments inside body when using the script inline //
+// ########################################################### //
+*/
 var AjaxMonitoringSample = 
 {
-	allowLog : false, 
 	manualSumbission : false, 
 	allowedByAutoDisabling : true,
 	monitoring_status : true,
@@ -39,10 +44,7 @@ var AjaxMonitoringSample =
 					{
 						if (this_.monitoring_status)
 						{
-							if (this_.allowLog) 
-							{
-								document.getElementById(this_.mainDivId+"_params").value = data;
-							}
+							document.getElementById(this_.mainDivId+"_params").value = data;
 						}
 					}
 				}
@@ -59,13 +61,9 @@ var AjaxMonitoringSample =
 						{
 							this.addEventListener("readystatechange", function(event) {   
 								if(this.readyState == 1){
-									if (method.toLowerCase()=="post") {
+									if (method.toLowerCase()!="post_get_or_whatever") {
 										document.getElementById(this_.mainDivId+"_url").value = uri;
-										this_.allowLog=true;
 									}
-								}
-								else if(this.readyState ==2){
-									this_.allowLog=false;
 								}
 								if(this.readyState == 4){
 									if(this_.ifDisableAfterFirstExecution()) 
@@ -120,8 +118,3 @@ var AjaxMonitoringSample =
 };
 
 AjaxMonitoringSample.init();
- 
-// ########################################################### //
-// https://github.com/ttodua/Tamper-Request-Javascript-Tool
-// Don't put comments inside body when using the script inline
-// ########################################################### //
