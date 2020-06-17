@@ -10,6 +10,7 @@ var AjaxMonitoringSample =
 	manualSumbission : false, 
 	allowedByAutoDisabling : true,
 	monitoring_status : true,
+	lastHeaders : {},
 	mainDivId : "AjaxMonitoringSample",
 	
 	init(){
@@ -71,12 +72,29 @@ var AjaxMonitoringSample =
 										this_.toggleMonitoring();
 									this_.setResponse(this.responseText);
 								}
-						  }, false);
+							}, false);
 						}
 					}
 				}
 				XHR_OpenOriginal.apply(this, arguments);
 			};
+			
+			
+			var XHR_SetRequestHeaderOriginal = XMLHttpRequest.prototype.setRequestHeader;
+			XMLHttpRequest.prototype.setRequestHeader = function(a, b) {
+				if (! this_.manualSumbission)
+				{
+					if (this_.allowedByAutoDisabling) 
+					{
+						if (this_.monitoring_status) 
+						{
+							this_.lastHeaders[a]=b;
+						}
+					}
+				}
+				XHR_SetRequestHeaderOriginal.apply(this, arguments);
+			};
+
 		}
 	},
 	
@@ -93,8 +111,12 @@ var AjaxMonitoringSample =
 
 		var http = new XMLHttpRequest();
 		http.open('POST', url, true);
-		http.setRequestHeader("Content-Type", (true ? "application/json;charset=UTF-8" : "application/x-www-form-urlencoded") ); 
-
+		
+		for (var prop in this.lastHeaders) {
+			if (Object.prototype.hasOwnProperty.call(this.lastHeaders, prop)) {
+				http.setRequestHeader(prop, this.lastHeaders[prop] ); 
+			}
+		}
 		http.onreadystatechange = function() {
 			if(http.readyState == 4 && http.status != 999)  
 			{
