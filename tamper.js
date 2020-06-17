@@ -1,4 +1,3 @@
-javascript:
 var AjaxMonitoringSample = 
 {
 	allowLog : false, 
