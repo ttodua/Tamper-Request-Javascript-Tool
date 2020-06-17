@@ -20,7 +20,7 @@ var AjaxMonitoringSample =
 		var div= document.createElement("div");
 		div.id= this.mainDivId;  if (document.getElementById(this.mainDivId)) document.getElementById(this.mainDivId).remove(); 
 		div.innerHTML=
-		`<style>#`+this.mainDivId+`{ position:fixed; bottom:0px; left:0px; width: 90%; left:5%; margin:0 auto; border:2px solid red; background:orange; border-radius:7px; opacity:0.9; } #`+this.mainDivId+` > *{padding:5px;}</style> 
+		`<style>#`+this.mainDivId+`{ z-index:99999; position:fixed; bottom:0px; left:0px; width: 90%; left:5%; margin:0 auto; border:2px solid red; background:orange; border-radius:7px; opacity:0.9; } #`+this.mainDivId+` > *{padding:5px;}</style> 
 		<div>
 			<textarea id="`+this.mainDivId+`_params" style="width:100%; height:40px;" placeholder="{key1:&quot;value1&quot;}"></textarea>
 			<input type="text" value="" id="`+this.mainDivId+`_url" style="width:100%;" placeholder="http://example.com" /> 
