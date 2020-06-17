@@ -7,7 +7,8 @@ Installation
 Can be used in console or as a browser-snippet.
  
 1) Just select the code and drag into your browser toolbar to save it as a browser-bookmark (snippet).
-2) Right-click > Edit > add the `javascript:` prefix in front of the code (and optionally change the name of snippet to whatever you like).
+![example](https://i.imgur.com/qYNQCCY.png)
+2) Right-click > Edit > add the `javascript:` prefix in front of the code (and optionally change the name of snippet to whatever you like, i.e. `Tamper`).
 
 Usage
 =
