@@ -4,6 +4,7 @@
 // Don't put comments inside body when using the script inline //
 // ########################################################### //
 */
+
 var AjaxMonitoringSample = 
 {
 	manualSumbission : false, 
