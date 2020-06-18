@@ -1,8 +1,8 @@
 /*
-// ########################################################### //
-// https://github.com/ttodua/Tamper-Request-Javascript-Tool    //
-// Don't put comments inside body when using the script inline //
-// ########################################################### //
+* ###################################################################
+* ##### https://github.com/ttodua/Tamper-Request-Javascript-Tool ####
+* ### Don't put comments inside body when using the script inline ###
+* ###################################################################
 */
 
 var AjaxMonitoringSample = 
