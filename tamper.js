@@ -39,7 +39,7 @@ var AjaxMonitoringSample =
 		if(typeof AjaxMonitoring_notfired == "undefined") var AjaxMonitoring_notfired=false; if (!AjaxMonitoring_notfired) 
 		{ 
 			AjaxMonitoring_notfired=true;
-			//
+ 
 			var XHR_SendOriginal = XMLHttpRequest.prototype.send;
 			XMLHttpRequest.prototype.send = function(data){
 				if (! this_.manualSumbission) 
@@ -54,7 +54,7 @@ var AjaxMonitoringSample =
 				}
 			    XHR_SendOriginal.apply(this, arguments);
 			};
-			//
+
 			var XHR_OpenOriginal = XMLHttpRequest.prototype.open;
 			XMLHttpRequest.prototype.open = function(method, uri, async, user, pass) {
 				if (! this_.manualSumbission)
@@ -81,7 +81,7 @@ var AjaxMonitoringSample =
 				}
 				XHR_OpenOriginal.apply(this, arguments);
 			};
-			//
+
 			var XHR_SetRequestHeaderOriginal = XMLHttpRequest.prototype.setRequestHeader;
 			XMLHttpRequest.prototype.setRequestHeader = function(a, b) {
 				if (! this_.manualSumbission)
