@@ -1,6 +1,6 @@
 This is a pure Javascript tool (browser agnostic) and doesn't need to install any Browser-Extensions.
 
-This tool/script hooks into AJAX (POST) requests and you can tamper/modify/replay requests.
+You can use this tool to hook into XMLHttpRequest (xhr) requests and you can tamper/modify/replay requests.
 
 Installation
 =
