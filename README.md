@@ -7,6 +7,7 @@ Installation
 Can be used in console or as a browser-snippet.
  
 1) Just copy the code and add that code as a browser-bookmark (snippet), name it whatever you want (i.e. `My Tamper`)
+
 ![example](https://i.imgur.com/FSuCiFs.png)
 2) Right-click > Edit > add the `javascript:` prefix in front of the code.
 
